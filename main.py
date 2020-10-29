@@ -89,14 +89,10 @@ def main():
         lookahead = 1
         path = os.path.join(args.output_dir, f"resolution_{resolution}")
         mkdir(path)
-        n_iter, V, _, steps = run(
-            resolution, knn, lookahead, args.gamma, args.episodes
-        )
+        n_iter, V, _, steps = run(resolution, knn, lookahead, args.gamma, args.episodes)
         plot_V(
             V,
-            os.path.join(
-                path, f"res_{resolution}_knn_{knn}_lookahead_{lookahead}.png"
-            ),
+            os.path.join(path, f"res_{resolution}_knn_{knn}_lookahead_{lookahead}.png"),
         )
         results["resolution"].extend([resolution] * len(steps))
         results["n_iter"].extend([n_iter] * len(steps))
@@ -110,6 +106,7 @@ def main():
             break
         last = mean
     pd.DataFrame(results).to_csv(os.path.join(args.output_dir, "results.csv"))
+
 
 if __name__ == "__main__":
     main()
